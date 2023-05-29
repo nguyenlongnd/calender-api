@@ -1,0 +1,61 @@
+version: '3'
+services:
+  app:
+    container_name: calendar_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - calendar_api
+
+networks:
+  calendar_api:
+    driver: bridge
+
+# version: '3'
+# services:
+#   mongo_db_volume:
+#     image: mongo:latest
+#     container_name: mongo_db_volumes
+#     restart: unless-stopped
+#     volumes:
+#       - ./mongo_db:/data/db
+#     networks:
+#       - mongo
+#     ports:
+#       - 27017:27017
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=admin
+#       - MONGO_INITDB_ROOT_PASSWORD=admin
+#       - MONGO_INITDB_DATABASE=user
+
+#   mongo_db_bind:
+#     image: mongo:latest
+#     container_name: mongo_db_bind
+#     restart: unless-stopped
+#     volumes:
+#       - type: volume
+#         source: mongo_db_vol
+#         target: /data/db
+#         volume:
+#           nocopy: true
+#     networks:
+#       - mongo
+#     ports:
+#       - 27018:27017
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=admin
+#       - MONGO_INITDB_ROOT_PASSWORD=admin
+#       - MONGO_INITDB_DATABASE=user
+
+# volumes:
+#   mongo_db_vol:
+
+# networks:
+#   mongo:
+#     driver: bridge
