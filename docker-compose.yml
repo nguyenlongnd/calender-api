@@ -12,11 +12,24 @@ services:
       - ${PORT}:${PORT}
     networks:
       - calendar_api
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - ./data/postgres:/data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - calendar_api
+    restart: unless-stopped
 
 networks:
   calendar_api:
     driver: bridge
-
 # version: '3'
 # services:
 #   mongo_db_volume:
