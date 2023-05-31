@@ -3,6 +3,7 @@ FROM node:18.12.1-alpine as dependency_stage
 # Deps stage
 WORKDIR /app
 COPY package.json /app
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
 RUN yarn install --loglevel=warn
 
 # Build stage
