@@ -19,7 +19,7 @@ export class GoogleCalendarController {
 
   @ApiOperation({ summary: 'Get All calendar events', description: 'Get calendar events' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Get calendar events', type: [CreateGoogleEventReq] })
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('event')
   async getCalendarEvents(@Query() query: GetEventReq) {
     return response(await this.gcanlendarService.getEventsService(query))
@@ -27,7 +27,7 @@ export class GoogleCalendarController {
 
   @ApiOperation({ summary: 'Get event detail by id', description: 'Get calendar event by id' })
   @ApiResponse({ status: HttpStatus.OK, type: CreateGoogleEventReq })
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('event/:eventId')
   async getCalendarEventById(@Param('eventId') eventId: string) {
     return response(await this.gcanlendarService.getCalendarEventByIdService(eventId))
@@ -36,7 +36,7 @@ export class GoogleCalendarController {
   @ApiOperation({ summary: 'Update Event' })
   @ApiResponse({ status: HttpStatus.OK, type: CreateGoogleEventReq })
   @UseGuards(PermisionUpdate())
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Put('/event/:eventId')
   async updateEvent(@Param('eventId') eventId: string, @Body(new EventDatePipe()) event: UpdateGoogleEventReq) {
     return response(await this.gcanlendarService.updateEventService(eventId, event))
@@ -44,7 +44,7 @@ export class GoogleCalendarController {
 
   @ApiResponse({ status: HttpStatus.OK, type: CreateGoogleEventReq })
   @ApiOperation({ summary: 'Create Google calendar event', description: 'Create Google calendar event' })
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('/event')
   async createEvents(@Body(new EventDatePipe()) event: CreateGoogleEventReq, @AuthUser() user: User) {
     return response(await this.gcanlendarService.createEventsService(event, user))
@@ -64,13 +64,13 @@ export class GoogleCalendarController {
 
   @ApiOperation({ summary: 'Delete event' })
   @UseGuards(PermisionUpdate())
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete('event/:eventId')
   async deleteEvent(@Param('eventId') eventId: string, @Query() query: DeleteEventReq) {
     return response(await this.gcanlendarService.deleteEventService(eventId, query))
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('event/instance/:eventId')
   @ApiOperation({ summary: 'Get all instances of the specified recurring event' })
   async getRecurrenceInstances(@Param('eventId') eventId: string) {

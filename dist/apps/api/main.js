@@ -337,25 +337,6 @@ exports.AuthModule = AuthModule;
 
 /***/ }),
 
-/***/ "./apps/api/src/modules/authentication/guard/jwt.guard.ts":
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.JwtAuthGuard = void 0;
-const tslib_1 = __webpack_require__("tslib");
-const common_1 = __webpack_require__("@nestjs/common");
-const passport_1 = __webpack_require__("@nestjs/passport");
-let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
-};
-JwtAuthGuard = tslib_1.__decorate([
-    (0, common_1.Injectable)()
-], JwtAuthGuard);
-exports.JwtAuthGuard = JwtAuthGuard;
-
-
-/***/ }),
-
 /***/ "./apps/api/src/modules/authentication/guard/role.guard.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -942,7 +923,6 @@ const swagger_1 = __webpack_require__("@nestjs/swagger");
 const winston_1 = __webpack_require__("winston");
 const utils_1 = __webpack_require__("./apps/api/src/utils/index.ts");
 const pipe_1 = __webpack_require__("./apps/api/src/utils/pipe.ts");
-const jwt_guard_1 = __webpack_require__("./apps/api/src/modules/authentication/guard/jwt.guard.ts");
 const role_guard_1 = __webpack_require__("./apps/api/src/modules/authentication/guard/role.guard.ts");
 const dto_1 = __webpack_require__("./apps/api/src/modules/google-calendar/dto/index.ts");
 const gcanlendar_service_1 = __webpack_require__("./apps/api/src/modules/google-calendar/gcanlendar.service.ts");
@@ -987,6 +967,7 @@ let GoogleCalendarController = class GoogleCalendarController {
             return (0, utils_1.response)(yield this.gcanlendarService.deleteEventService(eventId, query));
         });
     }
+    // @UseGuards(JwtAuthGuard)
     getRecurrenceInstances(eventId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return (0, utils_1.response)(yield this.gcanlendarService.getInstanceOfRecurrenceService(eventId));
@@ -1000,8 +981,9 @@ let GoogleCalendarController = class GoogleCalendarController {
 };
 tslib_1.__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Get All calendar events', description: 'Get calendar events' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, description: 'Get calendar events', type: [dto_1.CreateGoogleEventReq] }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, description: 'Get calendar events', type: [dto_1.CreateGoogleEventReq] })
+    // @UseGuards(JwtAuthGuard)
+    ,
     (0, common_1.Get)('event'),
     tslib_1.__param(0, (0, common_1.Query)()),
     tslib_1.__metadata("design:type", Function),
@@ -1010,8 +992,9 @@ tslib_1.__decorate([
 ], GoogleCalendarController.prototype, "getCalendarEvents", null);
 tslib_1.__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Get event detail by id', description: 'Get calendar event by id' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq })
+    // @UseGuards(JwtAuthGuard)
+    ,
     (0, common_1.Get)('event/:eventId'),
     tslib_1.__param(0, (0, common_1.Param)('eventId')),
     tslib_1.__metadata("design:type", Function),
@@ -1021,8 +1004,9 @@ tslib_1.__decorate([
 tslib_1.__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update Event' }),
     (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq }),
-    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)()),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)())
+    // @UseGuards(JwtAuthGuard)
+    ,
     (0, common_1.Put)('/event/:eventId'),
     tslib_1.__param(0, (0, common_1.Param)('eventId')),
     tslib_1.__param(1, (0, common_1.Body)(new pipe_1.EventDatePipe())),
@@ -1032,8 +1016,9 @@ tslib_1.__decorate([
 ], GoogleCalendarController.prototype, "updateEvent", null);
 tslib_1.__decorate([
     (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq }),
-    (0, swagger_1.ApiOperation)({ summary: 'Create Google calendar event', description: 'Create Google calendar event' }),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, swagger_1.ApiOperation)({ summary: 'Create Google calendar event', description: 'Create Google calendar event' })
+    // @UseGuards(JwtAuthGuard)
+    ,
     (0, common_1.Post)('/event'),
     tslib_1.__param(0, (0, common_1.Body)(new pipe_1.EventDatePipe())),
     tslib_1.__param(1, (0, role_guard_1.AuthUser)()),
@@ -1057,8 +1042,9 @@ tslib_1.__decorate([
 ], GoogleCalendarController.prototype, "getAvailableColor", null);
 tslib_1.__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Delete event' }),
-    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)()),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)())
+    // @UseGuards(JwtAuthGuard)
+    ,
     (0, common_1.Delete)('event/:eventId'),
     tslib_1.__param(0, (0, common_1.Param)('eventId')),
     tslib_1.__param(1, (0, common_1.Query)()),
@@ -1067,7 +1053,6 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Promise)
 ], GoogleCalendarController.prototype, "deleteEvent", null);
 tslib_1.__decorate([
-    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Get)('event/instance/:eventId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all instances of the specified recurring event' }),
     tslib_1.__param(0, (0, common_1.Param)('eventId')),
