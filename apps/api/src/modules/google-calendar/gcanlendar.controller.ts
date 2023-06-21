@@ -35,7 +35,7 @@ export class GoogleCalendarController {
 
   @ApiOperation({ summary: 'Update Event' })
   @ApiResponse({ status: HttpStatus.OK, type: CreateGoogleEventReq })
-  @UseGuards(PermisionUpdate())
+  // @UseGuards(PermisionUpdate())
   // @UseGuards(JwtAuthGuard)
   @Put('/event/:eventId')
   async updateEvent(@Param('eventId') eventId: string, @Body(new EventDatePipe()) event: UpdateGoogleEventReq) {
@@ -63,7 +63,7 @@ export class GoogleCalendarController {
   }
 
   @ApiOperation({ summary: 'Delete event' })
-  @UseGuards(PermisionUpdate())
+  // @UseGuards(PermisionUpdate())
   // @UseGuards(JwtAuthGuard)
   @Delete('event/:eventId')
   async deleteEvent(@Param('eventId') eventId: string, @Query() query: DeleteEventReq) {
