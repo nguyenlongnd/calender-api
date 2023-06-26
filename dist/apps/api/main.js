@@ -1003,8 +1003,8 @@ tslib_1.__decorate([
 ], GoogleCalendarController.prototype, "getCalendarEventById", null);
 tslib_1.__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update Event' }),
-    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq }),
-    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)())
+    (0, swagger_1.ApiResponse)({ status: common_1.HttpStatus.OK, type: dto_1.CreateGoogleEventReq })
+    // @UseGuards(PermisionUpdate())
     // @UseGuards(JwtAuthGuard)
     ,
     (0, common_1.Put)('/event/:eventId'),
@@ -1041,8 +1041,8 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", Promise)
 ], GoogleCalendarController.prototype, "getAvailableColor", null);
 tslib_1.__decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Delete event' }),
-    (0, common_1.UseGuards)((0, role_guard_1.PermisionUpdate)())
+    (0, swagger_1.ApiOperation)({ summary: 'Delete event' })
+    // @UseGuards(PermisionUpdate())
     // @UseGuards(JwtAuthGuard)
     ,
     (0, common_1.Delete)('event/:eventId'),
