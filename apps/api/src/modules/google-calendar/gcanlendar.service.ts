@@ -451,7 +451,6 @@ export class GoogleCalendarService {
         requestBody: {
           ...orginalEvent,
           ...newEvent,
-          summary: `Update-${new Date().toLocaleTimeString()}`,
           extendedProperties: {
             private: {
               ...orginalEvent?.extendedProperties?.private,
