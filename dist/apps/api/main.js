@@ -1522,7 +1522,7 @@ let GoogleCalendarService = class GoogleCalendarService {
                     conferenceDataVersion: 1,
                     eventId: rootId,
                     sendNotifications: true,
-                    requestBody: Object.assign(Object.assign(Object.assign({}, orginalEvent), newEvent), { summary: `Update-${new Date().toLocaleTimeString()}`, extendedProperties: {
+                    requestBody: Object.assign(Object.assign(Object.assign({}, orginalEvent), newEvent), { extendedProperties: {
                             private: Object.assign(Object.assign({}, (_a = orginalEvent === null || orginalEvent === void 0 ? void 0 : orginalEvent.extendedProperties) === null || _a === void 0 ? void 0 : _a.private), updateEventReq === null || updateEventReq === void 0 ? void 0 : updateEventReq.extendedProperties)
                         } })
                 });
